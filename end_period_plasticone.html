@@ -13075,58 +13075,6 @@ div#notebook {
     <div class="container" id="notebook-container">
 
 <div class="cell border-box-sizing code_cell rendered celltag_hide-input">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[1]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># sys, file and nav packages:</span>
-<span class="kn">import</span> <span class="nn">datetime</span> <span class="k">as</span> <span class="nn">dt</span>
-
-<span class="c1"># math packages:</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">scipy</span>
-<span class="kn">import</span> <span class="nn">pymc3</span> <span class="k">as</span> <span class="nn">pm</span>
-<span class="kn">import</span> <span class="nn">empiricaldist</span>
-<span class="kn">from</span> <span class="nn">empiricaldist</span> <span class="kn">import</span> <span class="n">Pmf</span>
-
-<span class="kn">import</span> <span class="nn">matplotlib</span>
-<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
-<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="kn">import</span> <span class="nn">matplotlib.colors</span> <span class="k">as</span> <span class="nn">mcolors</span>
-
-
-
-<span class="c1"># images and display</span>
-<span class="kn">import</span> <span class="nn">base64</span><span class="o">,</span> <span class="nn">io</span><span class="o">,</span> <span class="nn">IPython</span>
-<span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span> <span class="k">as</span> <span class="n">PILImage</span>
-<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Markdown</span> <span class="k">as</span> <span class="n">md</span>
-<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">display</span>
-
-<span class="c1"># set some parameters:</span>
-<span class="n">today</span> <span class="o">=</span> <span class="n">dt</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">date</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="n">start_date</span> <span class="o">=</span> <span class="s1">&#39;2020-03-01&#39;</span>
-<span class="n">end_date</span> <span class="o">=</span><span class="s1">&#39;2021-05-31&#39;</span>
-
-<span class="c1"># name of the output folder:</span>
-<span class="n">name_of_project</span> <span class="o">=</span> <span class="s1">&#39;femhygiene&#39;</span>
-
-<span class="n">dfBeaches</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;resources/beaches_with_land_use_rates.csv&quot;</span><span class="p">)</span>
-<span class="n">dfDims</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;resources/corrected_dims.csv&quot;</span><span class="p">)</span>
-
-<span class="c1"># set the index of the beach data to location slug</span>
-<span class="n">dfBeaches</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;slug&#39;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-
-<span class="c1"># map location slug to the proper city name</span>
-<span class="n">city_map</span> <span class="o">=</span> <span class="n">dfBeaches</span><span class="p">[</span><span class="s1">&#39;city&#39;</span><span class="p">]</span>
-
-<span class="c1"># map locations to feature names</span>
-<span class="n">location_wname_key</span> <span class="o">=</span> <span class="n">dfBeaches</span><span class="o">.</span><span class="n">water_name_slug</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
 
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
@@ -13172,135 +13120,6 @@ div#notebook {
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[2]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># all data since 2015</span>
-<span class="n">ldb</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;resources/fhg.csv&quot;</span><span class="p">)</span>
-
-<span class="c1"># assign loc_date</span>
-<span class="n">ldb</span><span class="p">[</span><span class="s1">&#39;loc_date&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">ldb</span><span class="o">.</span><span class="n">location</span><span class="p">,</span> <span class="n">ldb</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]))</span>
-
-<span class="c1"># date to datetime</span>
-<span class="n">ldb</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">ldb</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">],</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">)</span>
-
-<span class="c1"># agg levels</span>
-<span class="n">samp_loc</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;loc_date&#39;</span><span class="p">,</span> <span class="s1">&#39;location&#39;</span><span class="p">]</span>
-<span class="n">ldate</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;loc_date&#39;</span><span class="p">]</span>
-<span class="n">city</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Genève&#39;</span><span class="p">]</span>
-
-<span class="c1"># agg columns</span>
-<span class="n">qandp</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;quantity&#39;</span><span class="p">:</span><span class="s1">&#39;sum&#39;</span><span class="p">,</span> <span class="s1">&#39;pcs_m&#39;</span><span class="p">:</span><span class="s1">&#39;sum&#39;</span><span class="p">}</span>
-<span class="n">qandnsamps</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;quantity&#39;</span><span class="p">:</span> <span class="s1">&#39;sum&#39;</span><span class="p">,</span> <span class="s1">&#39;loc_date&#39;</span><span class="p">:</span><span class="s1">&#39;nunique&#39;</span><span class="p">}</span>
-
-<span class="c1"># agg codes and groups</span>
-<span class="n">code</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;G144&#39;</span><span class="p">,</span> <span class="s1">&#39;G96&#39;</span><span class="p">]</span>
-<span class="n">groupname</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;waste water&#39;</span><span class="p">]</span>
-
-<span class="c1"># masks for the data:</span>
-<span class="c1"># p1 = (ldb[&#39;date&#39;]&lt;= start_date)</span>
-<span class="c1"># p2 =(ldb[&#39;date&#39;] &gt;= start_date)&amp;(ldb[&#39;date&#39;] &lt;= end_date)</span>
-<span class="n">sg</span> <span class="o">=</span> <span class="n">ldb</span><span class="o">.</span><span class="n">city</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">city</span><span class="p">)</span>
-<span class="n">fhw</span> <span class="o">=</span> <span class="p">(</span><span class="n">ldb</span><span class="o">.</span><span class="n">groupname</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">groupname</span><span class="p">))</span>
-<span class="n">fhg</span> <span class="o">=</span> <span class="n">ldb</span><span class="o">.</span><span class="n">code</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">code</span><span class="p">)</span>
-<span class="n">gzero</span> <span class="o">=</span> <span class="n">ldb</span><span class="o">.</span><span class="n">quantity</span> <span class="o">&gt;</span> <span class="mi">0</span>
-
-<span class="c1"># define the sampling periods</span>
-
-<span class="c1"># year one</span>
-<span class="n">y_o_s</span> <span class="o">=</span> <span class="s2">&quot;2015-11-15&quot;</span>
-<span class="n">y_o_e</span> <span class="o">=</span> <span class="s2">&quot;2017-03-31&quot;</span>
-
-<span class="c1"># year two</span>
-<span class="n">y_t_s</span> <span class="o">=</span> <span class="s2">&quot;2017-04-01&quot;</span>
-<span class="n">y_t_e</span> <span class="o">=</span> <span class="s2">&quot;2018-05-01&quot;</span>
-
-<span class="c1"># year three</span>
-<span class="n">y_th_s</span> <span class="o">=</span> <span class="s2">&quot;2021-11-01&quot;</span>
-
-<span class="c1"># map the periods to the data</span>
-<span class="n">y_one</span> <span class="o">=</span> <span class="n">ldb</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">y_o_e</span>
-<span class="n">y_two</span> <span class="o">=</span> <span class="p">(</span><span class="n">ldb</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">y_t_s</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">ldb</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">y_t_e</span><span class="p">)</span>
-<span class="n">y_thre</span> <span class="o">=</span> <span class="p">(</span><span class="n">ldb</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">start_date</span><span class="p">)</span> <span class="o">&amp;</span><span class="p">(</span><span class="n">ldb</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">y_th_s</span><span class="p">)</span>
-
-<span class="c1"># make a seperate df for each</span>
-<span class="n">year_one</span> <span class="o">=</span> <span class="n">ldb</span><span class="p">[</span><span class="n">y_one</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-<span class="n">year_two</span> <span class="o">=</span> <span class="n">ldb</span><span class="p">[</span><span class="n">y_two</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-<span class="n">year_three</span> <span class="o">=</span> <span class="n">ldb</span><span class="p">[</span><span class="n">y_thre</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-
-<span class="c1"># store the dfs in an array</span>
-<span class="n">dfs</span> <span class="o">=</span>  <span class="p">[</span><span class="n">year_one</span><span class="p">,</span> <span class="n">year_two</span><span class="p">,</span> <span class="n">year_three</span><span class="p">]</span>
-
-<span class="c1"># # convenience functions to get the number of samples greater than zero</span>
-<span class="c1"># # for each groupname or list of codes</span>
-<span class="c1"># def groupname_greater_than_zero(df, groupname, qandp):</span>
-<span class="c1">#     agg = {&#39;pcs_m&#39;:&#39;sum&#39;, &#39;quantity&#39;:&#39;sum&#39;}</span>
-<span class="c1">#     a=df.groupby([&#39;loc_date&#39;, &#39;groupname&#39;], as_index=False).agg(qandp)</span>
-    
-<span class="c1">#     return a[(a.groupname == groupname) &amp; (a.quantity &gt; 0)].loc_date.nunique()</span>
-
-<span class="c1"># def code_vals_greater_than_zero(df, codevals, qandp):</span>
-<span class="c1">#     agg = {&#39;pcs_m&#39;:&#39;sum&#39;, &#39;quantity&#39;:&#39;sum&#39;}</span>
-<span class="c1">#     a=df.groupby([&#39;loc_date&#39;, &#39;code&#39;], as_index=False).agg(qandp)</span>
-    
-<span class="c1">#     return a[(a.code.isin(codevals)) &amp; (a.quantity &gt; 0)].loc_date.nunique()</span>
-
-<span class="c1"># totals for each survey</span>
-<span class="n">ldbdt</span> <span class="o">=</span> <span class="n">ldb</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">samp_loc</span><span class="p">,</span> <span class="n">as_index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="n">qandp</span><span class="p">)</span>
-
-<span class="c1"># map location to survey totals</span>
-<span class="n">ldbtqmap</span> <span class="o">=</span> <span class="n">ldbdt</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="n">ldate</span><span class="p">)[</span><span class="s1">&#39;quantity&#39;</span><span class="p">]</span>
-<span class="n">ldbtpmap</span> <span class="o">=</span> <span class="n">ldbdt</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="n">ldate</span><span class="p">)[</span><span class="s1">&#39;pcs_m&#39;</span><span class="p">]</span>
-
-<span class="c1"># summarize all instances at all locations</span>
-<span class="c1"># the total objects per location, number of samples, number of target objects, number of samples with target objects</span>
-<span class="n">adlt</span> <span class="o">=</span> <span class="n">ldb</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;city&#39;</span><span class="p">,</span><span class="s1">&#39;location&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="n">qandnsamps</span><span class="p">)</span>
-
-<span class="n">adlt</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;loc_date&#39;</span><span class="p">:</span><span class="s1">&#39;n samples&#39;</span><span class="p">,</span> <span class="s1">&#39;quantity&#39;</span><span class="p">:</span><span class="s1">&#39;qd&#39;</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">foundfhg</span> <span class="o">=</span><span class="n">ldb</span><span class="p">[</span><span class="n">fhg</span><span class="o">&amp;</span><span class="n">gzero</span><span class="p">]</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;city&#39;</span><span class="p">,</span><span class="s1">&#39;location&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="n">qandnsamps</span><span class="p">)</span>
-
-<span class="n">fhg_summary</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">adlt</span><span class="p">,</span><span class="n">foundfhg</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">fhg_summary</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">fhg_summary</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;quantity&#39;</span><span class="p">:</span><span class="s1">&#39;q_fhg&#39;</span><span class="p">,</span> <span class="s1">&#39;loc_date&#39;</span><span class="p">:</span><span class="s1">&#39;s_pos&#39;</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-
-<span class="c1"># summarize the data</span>
-
-<span class="c1"># the number of samples</span>
-<span class="n">nsamps</span> <span class="o">=</span> <span class="n">ldb</span><span class="o">.</span><span class="n">loc_date</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span>
-
-<span class="c1"># the number of samples with at least one object of interest</span>
-<span class="n">nsampsfhg</span> <span class="o">=</span> <span class="n">ldb</span><span class="p">[</span><span class="n">fhg</span><span class="o">&amp;</span><span class="n">gzero</span><span class="p">]</span><span class="o">.</span><span class="n">loc_date</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span>
-
-<span class="c1"># the number of samples with at least one waste water object:</span>
-<span class="n">nsampsww</span> <span class="o">=</span> <span class="n">ldb</span><span class="p">[</span><span class="n">fhw</span><span class="o">&amp;</span><span class="n">gzero</span><span class="p">]</span><span class="o">.</span><span class="n">loc_date</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span>
-
-<span class="c1"># the ratio of samples with at least one waste water object with respect to all the samples</span>
-<span class="c1"># nsampsww/nsamps # 0.91 </span>
-
-<span class="c1"># the ratio of all waste water objects found to all objects found</span>
-<span class="n">awwt</span> <span class="o">=</span> <span class="n">ldb</span><span class="p">[</span><span class="n">ldb</span><span class="o">.</span><span class="n">groupname</span> <span class="o">==</span> <span class="s1">&#39;waste water&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">quantity</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
-<span class="n">adq</span> <span class="o">=</span> <span class="n">ldb</span><span class="o">.</span><span class="n">quantity</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
-<span class="c1"># awwt/adq 0.07</span>
-
-<span class="c1"># the ratio of samples with at least one fhg object with respect to all the samples:</span>
-<span class="c1"># nsampsfhg/nsamps 0.41</span>
-
-<span class="c1"># the ratio of all fhg produ.grocts found to all objects found:</span>
-<span class="n">afhg</span> <span class="o">=</span> <span class="n">ldb</span><span class="p">[(</span><span class="n">ldb</span><span class="o">.</span><span class="n">code</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">code</span><span class="p">))]</span><span class="o">.</span><span class="n">quantity</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
-
-<span class="c1"># afhg/adq 0.004</span>
-          
-<span class="c1"># summarize the time periods</span>
-<span class="c1"># the number of samples per period and the number of samples that were positive per period</span>
-<span class="c1"># waste_water = [groupname_greater_than_zero(x, &#39;waste water&#39;, qandp) for x in dfs]</span>
-<span class="c1"># fhp = [code_vals_greater_than_zero(x, [&quot;G144&quot;, &quot;G96&quot;], qandp) for x in dfs]</span>
-<span class="c1"># nsamps = [x.loc_date.nunique() for x in dfs]</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
 
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
@@ -13312,48 +13131,11 @@ div#notebook {
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[3]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># assign a period to each sample</span>
-<span class="n">ldb</span><span class="p">[</span><span class="s1">&#39;period&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
-<span class="n">ldb</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">y_two</span><span class="p">,</span> <span class="s1">&#39;period&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span>
-<span class="n">ldb</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">y_thre</span><span class="p">,</span> <span class="s1">&#39;period&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">3</span>
-
-<span class="c1"># identify the zero values</span>
-<span class="n">just_fhg</span> <span class="o">=</span> <span class="n">ldb</span><span class="p">[</span><span class="n">fhg</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-<span class="n">just_fhg</span><span class="p">[</span><span class="s1">&#39;found&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
-<span class="n">just_fhg</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">just_fhg</span><span class="o">.</span><span class="n">quantity</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">),</span> <span class="s1">&#39;found&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
-
-<span class="c1"># count the positive values y for each period and region</span>
-<span class="n">geneva</span> <span class="o">=</span> <span class="n">just_fhg</span><span class="p">[</span><span class="n">sg</span><span class="p">]</span>
-<span class="n">summary_geneva</span> <span class="o">=</span> <span class="n">geneva</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;period&#39;</span><span class="p">,</span> <span class="n">as_index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">({</span><span class="s1">&#39;location&#39;</span><span class="p">:</span><span class="s1">&#39;nunique&#39;</span><span class="p">,</span> <span class="s1">&#39;loc_date&#39;</span><span class="p">:</span><span class="s1">&#39;nunique&#39;</span><span class="p">,</span> <span class="s1">&#39;found&#39;</span><span class="p">:</span><span class="s1">&#39;sum&#39;</span><span class="p">})</span>
-<span class="n">summary_geneva</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;loc_date&#39;</span><span class="p">:</span><span class="s1">&#39;n&#39;</span><span class="p">,</span><span class="s1">&#39;found&#39;</span><span class="p">:</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="s1">&#39;location&#39;</span><span class="p">:</span><span class="s1">&#39;locations&#39;</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-
-<span class="c1">#there were  no samples in Geneva durring the second sampling period</span>
-<span class="n">summary_geneva</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
-<span class="n">summary_geneva</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;period&#39;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">summary_geneva</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">geneva_yn</span> <span class="o">=</span> <span class="p">[(</span><span class="n">summary_geneva</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">summary_geneva</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="o">.</span><span class="n">n</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span>  <span class="n">summary_geneva</span><span class="o">.</span><span class="n">index</span><span class="p">]</span>
-
-<span class="n">summary_just_fhg</span> <span class="o">=</span> <span class="n">just_fhg</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;period&#39;</span><span class="p">,</span> <span class="n">as_index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">({</span><span class="s1">&#39;location&#39;</span><span class="p">:</span><span class="s1">&#39;nunique&#39;</span><span class="p">,</span> <span class="s1">&#39;loc_date&#39;</span><span class="p">:</span><span class="s1">&#39;nunique&#39;</span><span class="p">,</span> <span class="s1">&#39;found&#39;</span><span class="p">:</span><span class="s1">&#39;sum&#39;</span><span class="p">})</span>
-<span class="n">summary_just_fhg</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;loc_date&#39;</span><span class="p">:</span><span class="s1">&#39;n&#39;</span><span class="p">,</span><span class="s1">&#39;found&#39;</span><span class="p">:</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="s1">&#39;location&#39;</span><span class="p">:</span><span class="s1">&#39;locations&#39;</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">summary_just_fhg</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
 
 <div class="output_wrapper">
 <div class="output">
 
-
 <div class="output_area">
-
-    <div class="prompt"></div>
-
 
 <div class="output_subarea output_stream output_stderr output_text">
 <pre>/home/mwshovel/anaconda3/envs/ppenv/lib/python3.7/site-packages/ipykernel_launcher.py:12: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
@@ -13363,9 +13145,6 @@ div#notebook {
 </div>
 
 <div class="output_area">
-
-    <div class="prompt output_prompt">Out[3]:</div>
-
 
 
 <div class="output_html rendered_html output_subarea output_execute_result">
@@ -13435,25 +13214,11 @@ div#notebook {
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[4]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">summary_geneva</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
 
 <div class="output_wrapper">
 <div class="output">
 
-
 <div class="output_area">
-
-    <div class="prompt output_prompt">Out[4]:</div>
-
 
 
 <div class="output_html rendered_html output_subarea output_execute_result">
@@ -13531,27 +13296,11 @@ div#notebook {
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[5]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">glocs_summary</span> <span class="o">=</span> <span class="n">geneva</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;location&#39;</span><span class="p">,</span> <span class="s1">&#39;period&#39;</span><span class="p">],</span> <span class="n">as_index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">({</span><span class="s1">&#39;loc_date&#39;</span><span class="p">:</span><span class="s1">&#39;nunique&#39;</span><span class="p">,</span> <span class="s1">&#39;fail&#39;</span><span class="p">:</span><span class="s1">&#39;sum&#39;</span><span class="p">})</span>
-<span class="n">glocs_summary</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;loc_date&#39;</span><span class="p">:</span><span class="s1">&#39;n&#39;</span><span class="p">,</span><span class="s1">&#39;fail&#39;</span><span class="p">:</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="s1">&#39;location&#39;</span><span class="p">:</span><span class="s1">&#39;locations&#39;</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">glocs_summary</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
 
 <div class="output_wrapper">
 <div class="output">
 
-
 <div class="output_area">
-
-    <div class="prompt output_prompt">Out[5]:</div>
-
 
 
 <div class="output_html rendered_html output_subarea output_execute_result">
@@ -13692,157 +13441,14 @@ $$p(y|\theta) =  Bin(y|n,\theta)$$<p>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbs
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[6]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">make_beta</span><span class="p">(</span><span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Makes a beta object. Taken from Alen Downey ThinkBayes2.</span>
-<span class="sd">    </span>
-<span class="sd">    Returns a beta distribution with values assigned to Alpha, Beta    </span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">dist</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">beta</span><span class="p">(</span><span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span><span class="p">)</span>
-    <span class="n">dist</span><span class="o">.</span><span class="n">alpha</span> <span class="o">=</span> <span class="n">alpha</span>
-    <span class="n">dist</span><span class="o">.</span><span class="n">beta</span> <span class="o">=</span> <span class="n">beta</span>
-    
-    <span class="k">return</span> <span class="n">dist</span>
-
-<span class="k">def</span> <span class="nf">update_beta</span><span class="p">(</span><span class="n">prior</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Update a beta distribution. </span>
-<span class="sd">    Taken from Alen Downey ThinkBayes2. Updates a prior beta</span>
-<span class="sd">    distribution.</span>
-<span class="sd">    </span>
-<span class="sd">    Args:</span>
-<span class="sd">        y (int): number of samples where one was found</span>
-<span class="sd">        n (int): number of samples</span>
-<span class="sd">    </span>
-<span class="sd">    Returns:</span>
-<span class="sd">        An updated beta distribution</span>
-<span class="sd">    </span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">k</span><span class="p">,</span> <span class="n">n</span> <span class="o">=</span> <span class="n">data</span>
-    <span class="n">alpha</span> <span class="o">=</span> <span class="n">prior</span><span class="o">.</span><span class="n">alpha</span> <span class="o">+</span> <span class="n">k</span>
-    <span class="n">beta</span> <span class="o">=</span> <span class="n">prior</span><span class="o">.</span><span class="n">beta</span> <span class="o">+</span> <span class="n">n</span> <span class="o">-</span> <span class="n">k</span>
-    
-    <span class="k">return</span> <span class="n">make_beta</span><span class="p">(</span><span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span><span class="p">)</span>
-
-<span class="k">def</span> <span class="nf">get_n_y_codes</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">groups</span><span class="p">,</span> <span class="n">quantity</span><span class="p">):</span>
-    
-    <span class="n">data</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">code</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">args</span><span class="p">)]</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;location&#39;</span><span class="p">,</span><span class="s1">&#39;loc_date&#39;</span><span class="p">],</span> <span class="n">as_index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">quantity</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
-    <span class="n">val</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">data</span><span class="o">.</span><span class="n">quantity</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">loc_date</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span>
-    <span class="n">days</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">loc_date</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span>
-    
-    <span class="k">return</span> <span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">days</span><span class="p">)</span>
-
-<span class="k">def</span> <span class="nf">update_sampling_periods</span><span class="p">(</span><span class="n">prior</span><span class="p">,</span> <span class="n">vals</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Updates the prior with the y/n values from the current period.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    
-    <span class="n">yone</span> <span class="o">=</span> <span class="n">update_beta</span><span class="p">(</span><span class="n">prior</span><span class="p">,</span> <span class="n">vals</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-    <span class="n">ytwo</span> <span class="o">=</span> <span class="n">update_beta</span><span class="p">(</span><span class="n">yone</span><span class="p">,</span> <span class="n">vals</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-    <span class="n">ythr</span> <span class="o">=</span> <span class="n">update_beta</span><span class="p">(</span><span class="n">ytwo</span><span class="p">,</span> <span class="n">vals</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
-    
-    <span class="k">return</span> <span class="p">[</span><span class="n">yone</span><span class="p">,</span> <span class="n">ytwo</span><span class="p">,</span> <span class="n">ythr</span><span class="p">]</span>
-
-<span class="c1"># initial assumptions</span>
-<span class="c1"># a uniform distribution </span>
-
-<span class="n">alpha</span> <span class="o">=</span> <span class="mi">1</span>
-<span class="n">beta</span> <span class="o">=</span> <span class="mi">1</span>
-<span class="n">prior</span> <span class="o">=</span> <span class="n">make_beta</span><span class="p">(</span><span class="n">alpha</span><span class="p">,</span><span class="n">beta</span><span class="p">)</span>
-
-<span class="c1"># objects of interest</span>
-<span class="n">args</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;G144&quot;</span><span class="p">,</span> <span class="s2">&quot;G96&quot;</span><span class="p">]</span>
-
-<span class="c1"># data by sampling period</span>
-<span class="n">years</span> <span class="o">=</span> <span class="p">[</span><span class="n">year_one</span><span class="p">,</span> <span class="n">year_two</span><span class="p">,</span> <span class="n">year_three</span><span class="p">]</span>
-
-<span class="c1"># values of y and n for each sampling period</span>
-<span class="n">valls</span> <span class="o">=</span> <span class="p">[</span><span class="n">get_n_y_codes</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;location&#39;</span><span class="p">,</span><span class="s1">&#39;loc_date&#39;</span><span class="p">],</span> <span class="s1">&#39;quantity&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">years</span><span class="p">]</span>
-
-<span class="c1"># the posterior distributions for each sampling period</span>
-<span class="n">lake_posteriors</span> <span class="o">=</span> <span class="n">update_sampling_periods</span><span class="p">(</span><span class="n">prior</span><span class="p">,</span> <span class="n">valls</span><span class="p">)</span>
-
-<span class="c1"># draw some posterior samples</span>
-<span class="n">r</span> <span class="o">=</span> <span class="n">lake_posteriors</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
-<span class="n">q</span> <span class="o">=</span> <span class="n">lake_posteriors</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
-<span class="n">t</span> <span class="o">=</span> <span class="n">lake_posteriors</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
-
-<span class="c1"># limit data to geneva</span>
-<span class="n">yearsg</span> <span class="o">=</span> <span class="p">[</span><span class="n">ldb</span><span class="p">[(</span><span class="n">y_one</span><span class="p">)</span><span class="o">&amp;</span><span class="p">(</span><span class="n">sg</span><span class="p">)]</span><span class="o">.</span><span class="n">copy</span><span class="p">(),</span> <span class="n">ldb</span><span class="p">[</span><span class="n">y_two</span><span class="o">&amp;</span><span class="n">sg</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">(),</span><span class="n">ldb</span><span class="p">[</span><span class="n">y_thre</span><span class="o">&amp;</span><span class="n">sg</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()]</span>
-
-<span class="n">glocs</span> <span class="o">=</span> <span class="n">ldb</span><span class="p">[</span><span class="n">sg</span><span class="p">]</span><span class="o">.</span><span class="n">location</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
-
-<span class="n">valsg</span> <span class="o">=</span> <span class="p">[</span><span class="n">get_n_y_codes</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;location&#39;</span><span class="p">,</span><span class="s1">&#39;loc_date&#39;</span><span class="p">],</span> <span class="s1">&#39;quantity&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">yearsg</span><span class="p">]</span>
-
-<span class="c1"># posterior samples from geneva</span>
-<span class="n">geneva_posteriors</span> <span class="o">=</span> <span class="n">update_sampling_periods</span><span class="p">(</span><span class="n">prior</span><span class="p">,</span> <span class="n">valsg</span><span class="p">)</span>
-
-<span class="c1"># draw some posterior samples</span>
-<span class="n">rg</span> <span class="o">=</span> <span class="n">geneva_posteriors</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
-<span class="n">qg</span> <span class="o">=</span> <span class="n">geneva_posteriors</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
-<span class="n">tg</span> <span class="o">=</span> <span class="n">geneva_posteriors</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[7]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span><span class="mi">7</span><span class="p">))</span>
-
-<span class="n">ythr_pos</span> <span class="o">=</span> <span class="n">lake_posteriors</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
-<span class="n">ythr_posg</span> <span class="o">=</span> <span class="n">geneva_posteriors</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
-
-<span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<span class="n">ax2</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">r</span><span class="p">),</span> <span class="n">stat</span><span class="o">=</span><span class="s1">&#39;probability&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span> <span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=.</span><span class="mi">1</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Period one&#39;</span><span class="p">)</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">q</span><span class="p">),</span> <span class="n">stat</span><span class="o">=</span><span class="s1">&#39;probability&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=.</span><span class="mi">1</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Period two&#39;</span><span class="p">)</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">t</span><span class="p">),</span> <span class="n">stat</span><span class="o">=</span><span class="s1">&#39;probability&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;period three&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">vlines</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">ythr_pos</span><span class="o">.</span><span class="n">interval</span><span class="p">(</span><span class="o">.</span><span class="mi">95</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="n">ymin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">ymax</span><span class="o">=</span><span class="mf">0.06</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">vlines</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">ythr_pos</span><span class="o">.</span><span class="n">interval</span><span class="p">(</span><span class="o">.</span><span class="mi">95</span><span class="p">)[</span><span class="mi">1</span><span class="p">],</span> <span class="n">ymin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">ymax</span><span class="o">=</span><span class="mf">0.06</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
-<span class="c1"># ax.hlines(y=.03, xmin=ythr_pos.interval(.95)[0], xmax=ythr_pos.interval(.95)[1])</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">axvspan</span><span class="p">(</span><span class="n">xmin</span><span class="o">=</span><span class="n">ythr_pos</span><span class="o">.</span><span class="n">interval</span><span class="p">(</span><span class="o">.</span><span class="mi">95</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="n">xmax</span><span class="o">=</span><span class="n">ythr_pos</span><span class="o">.</span><span class="n">interval</span><span class="p">(</span><span class="o">.</span><span class="mi">95</span><span class="p">)[</span><span class="mi">1</span><span class="p">],</span> <span class="n">ymin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">ymax</span><span class="o">=.</span><span class="mi">5</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;95</span><span class="si">% E</span><span class="s2">TI&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="o">.</span><span class="mi">01</span><span class="p">,</span><span class="o">.</span><span class="mi">99</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$\theta$&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;Probability of $\theta$&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Lac Léman&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
-
-
-<span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">rg</span><span class="p">),</span> <span class="n">stat</span><span class="o">=</span><span class="s1">&#39;probability&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span> <span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=.</span><span class="mi">1</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Period one&#39;</span><span class="p">)</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">qg</span><span class="p">),</span> <span class="n">stat</span><span class="o">=</span><span class="s1">&#39;probability&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=.</span><span class="mi">1</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Period two&#39;</span><span class="p">)</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">tg</span><span class="p">),</span> <span class="n">stat</span><span class="o">=</span><span class="s1">&#39;probability&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;period three&quot;</span><span class="p">)</span>
-<span class="n">ax2</span><span class="o">.</span><span class="n">vlines</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">ythr_posg</span><span class="o">.</span><span class="n">interval</span><span class="p">(</span><span class="o">.</span><span class="mi">95</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="n">ymin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">ymax</span><span class="o">=</span><span class="mf">0.06</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
-<span class="n">ax2</span><span class="o">.</span><span class="n">vlines</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">ythr_posg</span><span class="o">.</span><span class="n">interval</span><span class="p">(</span><span class="o">.</span><span class="mi">95</span><span class="p">)[</span><span class="mi">1</span><span class="p">],</span> <span class="n">ymin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">ymax</span><span class="o">=</span><span class="mf">0.06</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
-<span class="c1"># ax.hlines(y=.03, xmin=ythr_pos.interval(.95)[0], xmax=ythr_pos.interval(.95)[1])</span>
-<span class="n">ax2</span><span class="o">.</span><span class="n">axvspan</span><span class="p">(</span><span class="n">xmin</span><span class="o">=</span><span class="n">ythr_posg</span><span class="o">.</span><span class="n">interval</span><span class="p">(</span><span class="o">.</span><span class="mi">95</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="n">xmax</span><span class="o">=</span><span class="n">ythr_posg</span><span class="o">.</span><span class="n">interval</span><span class="p">(</span><span class="o">.</span><span class="mi">95</span><span class="p">)[</span><span class="mi">1</span><span class="p">],</span> <span class="n">ymin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">ymax</span><span class="o">=.</span><span class="mi">5</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;95</span><span class="si">% E</span><span class="s2">TI&quot;</span><span class="p">)</span>
-<span class="n">ax2</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="o">.</span><span class="mi">01</span><span class="p">,</span><span class="o">.</span><span class="mi">99</span><span class="p">)</span>
-<span class="n">ax2</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$\theta$&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
-<span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;Probability of $\theta$&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
-<span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Geneva&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="o">.</span><span class="mi">1</span><span class="p">))</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
 
 <div class="output_wrapper">
 <div class="output">
 
-
 <div class="output_area">
-
-    <div class="prompt"></div>
-
 
 
 
@@ -13870,32 +13476,11 @@ $$p(y|\theta) =  Bin(y|n,\theta)$$<p>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbs
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered celltag_hide-input">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[8]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">output</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">BytesIO</span><span class="p">()</span>
-<span class="n">bassin_map</span> <span class="o">=</span> <span class="n">PILImage</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">&quot;resources/images/locgeneve.jpeg&quot;</span><span class="p">)</span>
-<span class="n">bassin_map</span><span class="o">.</span><span class="n">thumbnail</span><span class="p">((</span><span class="mi">800</span><span class="p">,</span> <span class="mi">1200</span><span class="p">))</span>
-<span class="n">bassin_map</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;PNG&#39;</span><span class="p">)</span>
-<span class="n">encoded_string</span> <span class="o">=</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">output</span><span class="o">.</span><span class="n">getvalue</span><span class="p">())</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span>
-
-<span class="n">html</span> <span class="o">=</span> <span class="s1">&#39;&lt;img src=&quot;data:image/png;base64,</span><span class="si">{}</span><span class="s1">&quot;/&gt;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">encoded_string</span><span class="p">)</span>
-<span class="n">IPython</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">HTML</span><span class="p">(</span><span class="n">html</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
 
 <div class="output_wrapper">
 <div class="output">
 
-
 <div class="output_area">
-
-    <div class="prompt output_prompt">Out[8]:</div>
-
 
 
 <div class="output_html rendered_html output_subarea output_execute_result">
@@ -13909,104 +13494,6 @@ $$p(y|\theta) =  Bin(y|n,\theta)$$<p>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbs
 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[9]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># if no samples were taken for a location durring a sampling period </span>
-<span class="c1"># the assumed parameters are the y and n for the region under consideration</span>
-<span class="c1"># this means we assume that the probability of finding an object at a particular </span>
-<span class="c1"># location is closely related to the probability of finding an object in the region</span>
-<span class="c1"># which is the same as our initial assumption that the probability was  essentially the </span>
-<span class="c1"># same everywhere</span>
-
-<span class="k">def</span> <span class="nf">insert_prior_vals</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">obs</span><span class="p">,</span> <span class="n">priors_region</span><span class="p">,</span> <span class="n">num_periods</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">one_minus</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-    
-    <span class="sd">&quot;&quot;&quot;Inserts the y and n values from the region as updates for locations that have no</span>
-<span class="sd">    samples during the current sampling period.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    
-    <span class="n">data</span> <span class="o">=</span> <span class="n">obs</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">obs</span><span class="o">.</span><span class="n">locations</span> <span class="o">==</span> <span class="n">l</span><span class="p">]</span>
-    <span class="n">wiw</span> <span class="o">=</span> <span class="p">{</span><span class="n">l</span><span class="p">:[]}</span>
-    
-    <span class="k">for</span> <span class="n">a_p</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">num_periods</span><span class="p">):</span>
-        <span class="n">p</span><span class="o">=</span><span class="n">a_p</span> <span class="o">+</span> <span class="mi">1</span>
-        <span class="c1"># get the observed y and n values for the period</span>
-        <span class="n">n</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">data</span><span class="o">.</span><span class="n">period</span><span class="o">==</span><span class="n">p</span><span class="p">,</span> <span class="s1">&#39;n&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
-        <span class="n">y</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">data</span><span class="o">.</span><span class="n">period</span><span class="o">==</span><span class="n">p</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
-        
-        <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="c1"># use the y and n values for the region to update the prior</span>
-            <span class="n">y_n</span> <span class="o">=</span> <span class="n">priors_region</span><span class="p">[</span><span class="n">a_p</span><span class="p">]</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">y_n</span> <span class="o">=</span> <span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="n">n</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">one_minus</span><span class="p">:</span>
-            <span class="n">y_n</span> <span class="o">=</span> <span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="n">y</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">pass</span>
-        
-        <span class="n">wiw</span><span class="p">[</span><span class="n">l</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y_n</span><span class="p">)</span>
-    
-    <span class="k">return</span> <span class="n">wiw</span>
-
-<span class="k">def</span> <span class="nf">replace_with_next_level</span><span class="p">(</span><span class="n">regional</span><span class="p">,</span> <span class="n">lake</span><span class="p">,</span> <span class="n">glocs</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Replaces any y=0, n=0 with the lake values for any period</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">wiw</span> <span class="o">=</span> <span class="p">{}</span>
-    <span class="k">for</span> <span class="n">adict</span> <span class="ow">in</span> <span class="n">regional</span><span class="p">:</span>
-        <span class="n">l</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">adict</span><span class="o">.</span><span class="n">keys</span><span class="p">())[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="n">data</span> <span class="o">=</span> <span class="n">adict</span><span class="p">[</span><span class="n">l</span><span class="p">]</span>        
-        <span class="n">new_data</span> <span class="o">=</span> <span class="p">{</span><span class="n">l</span><span class="p">:[]}</span>
-        
-        <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">a_tup</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
-            <span class="k">if</span> <span class="nb">sum</span><span class="p">(</span><span class="n">a_tup</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-                <span class="n">new_tup</span> <span class="o">=</span> <span class="n">lake</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">new_tup</span> <span class="o">=</span> <span class="n">a_tup</span>
-            <span class="n">new_data</span><span class="p">[</span><span class="n">l</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_tup</span><span class="p">)</span>
-        
-        <span class="n">wiw</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">new_data</span><span class="p">)</span>
-    
-    <span class="k">return</span> <span class="n">wiw</span>
-            
-                
-        
-<span class="c1"># this sets the results for each sampling period based on the results from the previous for that location or the reduced values for the lake</span>
-<span class="n">updates_g</span> <span class="o">=</span> <span class="p">[</span><span class="n">insert_prior_vals</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">glocs_summary</span><span class="p">,</span> <span class="p">[(</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">5</span><span class="p">),(</span><span class="mi">2</span><span class="p">,</span><span class="mi">5</span><span class="p">)],</span> <span class="n">num_periods</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span> <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">glocs</span><span class="p">]</span>
-
-<span class="c1"># get the number of times that one was not found.</span>
-<span class="n">updates_g_neg</span> <span class="o">=</span> <span class="p">[</span><span class="n">insert_prior_vals</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">glocs_summary</span><span class="p">,</span> <span class="p">[(</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">5</span><span class="p">),(</span><span class="mi">2</span><span class="p">,</span><span class="mi">5</span><span class="p">)],</span> <span class="n">num_periods</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">one_minus</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">glocs</span><span class="p">]</span>
-
-<span class="c1"># this sets the results for each sampling period based on the results from the previous for that location or the lake</span>
-<span class="n">update_vals_l</span> <span class="o">=</span> <span class="p">[</span><span class="n">insert_prior_vals</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">glocs_summary</span><span class="p">,</span> <span class="n">valls</span><span class="p">,</span> <span class="n">num_periods</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span> <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">glocs</span><span class="p">]</span>
-
-<span class="c1"># get the number of times that one was not found.</span>
-<span class="n">update_vals_lneg</span> <span class="o">=</span> <span class="p">[</span><span class="n">insert_prior_vals</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">glocs_summary</span><span class="p">,</span> <span class="n">valls</span><span class="p">,</span> <span class="n">num_periods</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">one_minus</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">glocs</span><span class="p">]</span>
-
-<span class="n">updates_gk</span> <span class="o">=</span> <span class="p">{}</span>
-<span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">l</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">glocs</span><span class="p">):</span>
-    <span class="n">c</span><span class="o">=</span><span class="n">update_sampling_periods</span><span class="p">(</span><span class="n">prior</span><span class="p">,</span> <span class="n">updates_g</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">l</span><span class="p">])</span>
-    <span class="n">updates_gk</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">l</span><span class="p">:</span><span class="n">c</span><span class="p">})</span>
-
-<span class="n">updates_gkneg</span> <span class="o">=</span> <span class="p">{}</span>
-<span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">l</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">glocs</span><span class="p">):</span>
-    <span class="n">c</span><span class="o">=</span><span class="n">update_sampling_periods</span><span class="p">(</span><span class="n">prior</span><span class="p">,</span> <span class="n">updates_g_neg</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">l</span><span class="p">])</span>
-    <span class="n">updates_gkneg</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">l</span><span class="p">:</span><span class="n">c</span><span class="p">})</span>
-    
-<span class="n">updates_l</span> <span class="o">=</span> <span class="p">{}</span>
-<span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">l</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">glocs</span><span class="p">):</span>
-    <span class="n">c</span><span class="o">=</span><span class="n">update_sampling_periods</span><span class="p">(</span><span class="n">prior</span><span class="p">,</span> <span class="n">update_vals_l</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">l</span><span class="p">])</span>
-    <span class="n">updates_l</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">l</span><span class="p">:</span><span class="n">c</span><span class="p">})</span>
-    
-<span class="n">updates_lneg</span> <span class="o">=</span> <span class="p">{}</span>
-<span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">l</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">glocs</span><span class="p">):</span>
-    <span class="n">c</span><span class="o">=</span><span class="n">update_sampling_periods</span><span class="p">(</span><span class="n">prior</span><span class="p">,</span> <span class="n">update_vals_lneg</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">l</span><span class="p">])</span>
-    <span class="n">updates_lneg</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">l</span><span class="p">:</span><span class="n">c</span><span class="p">})</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
 
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
@@ -14027,36 +13514,11 @@ $$p(y|\theta) =  Bin(y|n,\theta)$$<p>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbs
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[10]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
-
-<span class="n">beach_colors</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;indianred&quot;</span><span class="p">,</span> <span class="s2">&quot;sienna&quot;</span><span class="p">,</span> <span class="s2">&quot;olivedrab&quot;</span><span class="p">,</span> <span class="s2">&quot;violet&quot;</span><span class="p">,</span> <span class="s2">&quot;dodgerblue&quot;</span><span class="p">]</span>
-
-<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">l</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">glocs</span><span class="p">):</span>
-    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">updates_gk</span><span class="p">[</span><span class="n">l</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mf">0.01</span><span class="p">),</span> <span class="n">updates_gk</span><span class="p">[</span><span class="n">l</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mf">0.99</span><span class="p">),</span> <span class="mi">100</span><span class="p">)</span>
-    <span class="n">xneg</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">updates_gkneg</span><span class="p">[</span><span class="n">l</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mf">0.01</span><span class="p">),</span> <span class="n">updates_gkneg</span><span class="p">[</span><span class="n">l</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mf">0.99</span><span class="p">),</span> <span class="mi">100</span><span class="p">)</span>
-    <span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">updates_gk</span><span class="p">[</span><span class="n">l</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;blue&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>  <span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;$p(\theta)$&quot;</span><span class="p">)</span>
-    <span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">xneg</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">updates_gkneg</span><span class="p">[</span><span class="n">l</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">xneg</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>  <span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;$1-p(\theta)$&quot;</span><span class="p">)</span>
-    <span class="n">axs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="n">l</span><span class="p">)</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
 
 <div class="output_wrapper">
 <div class="output">
 
-
 <div class="output_area">
-
-    <div class="prompt"></div>
-
 
 
 
@@ -14081,30 +13543,11 @@ $$p(y|\theta) =  Bin(y|n,\theta)$$<p>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbs
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[11]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">l</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">glocs</span><span class="p">):</span>
-    <span class="n">interval</span> <span class="o">=</span> <span class="n">updates_gk</span><span class="p">[</span><span class="n">l</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">interval</span><span class="p">(</span><span class="o">.</span><span class="mi">5</span><span class="p">)</span>
-    <span class="n">mean</span> <span class="o">=</span> <span class="n">updates_gk</span><span class="p">[</span><span class="n">l</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
-    <span class="n">mode</span> <span class="o">=</span> <span class="p">(</span><span class="n">updates_gk</span><span class="p">[</span><span class="n">l</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">alpha</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">updates_gk</span><span class="p">[</span><span class="n">l</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">alpha</span><span class="o">+</span><span class="n">updates_gk</span><span class="p">[</span><span class="n">l</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">beta</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span>
-    <span class="n">var</span> <span class="o">=</span> <span class="n">updates_gk</span><span class="p">[</span><span class="n">l</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">var</span><span class="p">()</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{l}</span><span class="s2">: mean={ np.round(mean,2) }, mode={np.round(mode,2)}, [25</span><span class="si">% - 75%</span><span class="s2">]=({np.round(interval[0],2), np.round(interval[1],2)}), variance={np.round(var, 2)}&quot;</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
 
 <div class="output_wrapper">
 <div class="output">
 
-
 <div class="output_area">
-
-    <div class="prompt"></div>
-
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>baby-plage-geneva: mean=0.38, mode=0.37, [25% - 75%]=((0.31, 0.45)), variance=0.01
@@ -14129,45 +13572,11 @@ jardin-botanique: mean=0.53, mode=0.54, [25% - 75%]=((0.45, 0.62)), variance=0.0
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[12]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">simulate_one_draw</span><span class="p">(</span><span class="n">updates</span><span class="p">,</span> <span class="n">sampledist</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
-    <span class="n">wiw</span><span class="o">=</span><span class="p">{}</span>
-    <span class="n">ptotals</span> <span class="o">=</span> <span class="p">{}</span>
-    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">l</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">labels</span><span class="p">):</span>
-
-        <span class="n">ptheta</span> <span class="o">=</span> <span class="n">updates</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-        <span class="n">p</span> <span class="o">=</span> <span class="n">ptheta</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="n">size</span><span class="p">)</span>
-        <span class="n">succes</span><span class="o">=</span><span class="mi">0</span>
-        <span class="k">for</span> <span class="n">ap</span> <span class="ow">in</span> <span class="n">p</span><span class="p">:</span>
-            <span class="n">res</span> <span class="o">=</span> <span class="n">sampledist</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">ap</span><span class="p">)</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-            <span class="n">succes</span> <span class="o">+=</span> <span class="n">res</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-            
-
-        <span class="n">wiw</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">l</span><span class="p">:</span><span class="n">succes</span><span class="p">})</span>
-        
-    <span class="k">return</span> <span class="n">wiw</span>
-
-<span class="n">updates</span> <span class="o">=</span> <span class="p">[</span><span class="n">updates_gk</span><span class="p">[</span><span class="n">l</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">glocs</span><span class="p">]</span>
-
-<span class="n">posterior_samples</span><span class="o">=</span> <span class="n">simulate_one_draw</span><span class="p">(</span><span class="n">updates</span><span class="p">,</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">binom</span><span class="p">,</span> <span class="n">glocs</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">posterior_samples</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
 
 <div class="output_wrapper">
 <div class="output">
 
-
 <div class="output_area">
-
-    <div class="prompt output_prompt">Out[12]:</div>
-
 
 
 
@@ -14203,38 +13612,11 @@ jardin-botanique: mean=0.53, mode=0.54, [25% - 75%]=((0.45, 0.62)), variance=0.0
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[13]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
-
-<span class="n">beach_colors</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;indianred&quot;</span><span class="p">,</span> <span class="s2">&quot;sienna&quot;</span><span class="p">,</span> <span class="s2">&quot;olivedrab&quot;</span><span class="p">,</span> <span class="s2">&quot;violet&quot;</span><span class="p">,</span> <span class="s2">&quot;dodgerblue&quot;</span><span class="p">]</span>
-
-<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">l</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">glocs</span><span class="p">):</span>
-    
-    <span class="n">xi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">updates_l</span><span class="p">[</span><span class="n">l</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mf">0.01</span><span class="p">),</span> <span class="n">updates_l</span><span class="p">[</span><span class="n">l</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mf">0.99</span><span class="p">),</span> <span class="mi">100</span><span class="p">)</span>
-    <span class="n">xneg</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">updates_lneg</span><span class="p">[</span><span class="n">l</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mf">0.01</span><span class="p">),</span> <span class="n">updates_lneg</span><span class="p">[</span><span class="n">l</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mf">0.99</span><span class="p">),</span> <span class="mi">100</span><span class="p">)</span>
-    <span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">xi</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">updates_l</span><span class="p">[</span><span class="n">l</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">xi</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;blue&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>  <span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>  <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;$p(\theta)$&quot;</span><span class="p">)</span>
-    <span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">xneg</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">updates_lneg</span><span class="p">[</span><span class="n">l</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">xneg</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>  <span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;$1-p(\theta)$&quot;</span><span class="p">)</span>
-    <span class="n">axs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="n">l</span><span class="p">)</span>
-    <span class="n">axs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
 
 <div class="output_wrapper">
 <div class="output">
 
-
 <div class="output_area">
-
-    <div class="prompt"></div>
-
 
 
 
@@ -14259,30 +13641,11 @@ jardin-botanique: mean=0.53, mode=0.54, [25% - 75%]=((0.45, 0.62)), variance=0.0
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[14]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">l</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">glocs</span><span class="p">):</span>
-    <span class="n">interval</span> <span class="o">=</span> <span class="n">updates_l</span><span class="p">[</span><span class="n">l</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">interval</span><span class="p">(</span><span class="o">.</span><span class="mi">95</span><span class="p">)</span>
-    <span class="n">mean</span> <span class="o">=</span> <span class="n">updates_l</span><span class="p">[</span><span class="n">l</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
-    <span class="n">mode</span> <span class="o">=</span> <span class="p">(</span><span class="n">updates_l</span><span class="p">[</span><span class="n">l</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">alpha</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">updates_l</span><span class="p">[</span><span class="n">l</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">alpha</span><span class="o">+</span><span class="n">updates_l</span><span class="p">[</span><span class="n">l</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">beta</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span>
-    <span class="n">var</span> <span class="o">=</span> <span class="n">updates_l</span><span class="p">[</span><span class="n">l</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">var</span><span class="p">()</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{l}</span><span class="s2">: mean={ np.round(mean,2) }, mode={np.round(mode,2)}, [25</span><span class="si">% - 75%</span><span class="s2">]=({np.round(interval[0],2), np.round(interval[1],2)}), variance={np.round(var, 2)}&quot;</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
 
 <div class="output_wrapper">
 <div class="output">
 
-
 <div class="output_area">
-
-    <div class="prompt"></div>
-
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>baby-plage-geneva: mean=0.42, mode=0.42, [25% - 75%]=((0.34, 0.5)), variance=0.0
@@ -14307,28 +13670,11 @@ jardin-botanique: mean=0.47, mode=0.47, [25% - 75%]=((0.39, 0.55)), variance=0.0
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[15]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">updates</span> <span class="o">=</span> <span class="p">[</span><span class="n">updates_l</span><span class="p">[</span><span class="n">l</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">glocs</span><span class="p">]</span>
-
-<span class="n">posterior_samples</span><span class="o">=</span> <span class="n">simulate_one_draw</span><span class="p">(</span><span class="n">updates</span><span class="p">,</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">binom</span><span class="p">,</span> <span class="n">glocs</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">posterior_samples</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
 
 <div class="output_wrapper">
 <div class="output">
 
-
 <div class="output_area">
-
-    <div class="prompt output_prompt">Out[15]:</div>
-
 
 
 
@@ -14372,25 +13718,11 @@ jardin-botanique: mean=0.47, mode=0.47, [25% - 75%]=((0.39, 0.55)), variance=0.0
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered celltag_hide-input">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[16]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">fhg_summary</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
 
 <div class="output_wrapper">
 <div class="output">
 
-
 <div class="output_area">
-
-    <div class="prompt output_prompt">Out[16]:</div>
-
 
 
 <div class="output_html rendered_html output_subarea output_execute_result">
@@ -14721,49 +14053,14 @@ jardin-botanique: mean=0.47, mode=0.47, [25% - 75%]=((0.39, 0.55)), variance=0.0
 
 </div>
 <div class="cell border-box-sizing code_cell rendered celltag_hide-input">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[17]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># csv for qgis</span>
-<span class="n">fhg_summary</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;resources/fmhgtots.csv&#39;</span><span class="p">,</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
 
 </div>
 <div class="cell border-box-sizing code_cell rendered celltag_hide-input">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[18]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">author</span> <span class="o">=</span> <span class="s2">&quot;roger@hammerdirt.ch&quot;</span>
-<span class="n">my_message</span> <span class="o">=</span> <span class="s2">&quot;Love what you do. </span><span class="se">\u2764\ufe0f</span><span class="s2">&quot;</span>
-<span class="n">md</span><span class="p">(</span><span class="sa">F</span><span class="s2">&quot;&quot;&quot;</span>
-<span class="s2">&lt;br&gt;&lt;/br&gt;</span>
-<span class="s2">**Hammerdirt everyday.**&lt;br&gt;</span>
-
-<span class="s2">&gt;</span><span class="si">{my_message}</span><span class="s2">&lt;br&gt;</span>
-
-<span class="s2">*</span><span class="si">{author}</span><span class="s2">* pushed the run button on </span><span class="si">{today}</span><span class="s2">.&lt;br&gt;</span>
-<span class="s2">This document originates from https://github.com/hammerdirt-analyst/ all copyrights apply.&lt;br&gt;</span>
-<span class="s2">&quot;&quot;&quot;</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
 
 <div class="output_wrapper">
 <div class="output">
 
-
 <div class="output_area">
-
-    <div class="prompt output_prompt">Out[18]:</div>
-
 
 
 <div class="output_markdown rendered_html output_subarea output_execute_result">
